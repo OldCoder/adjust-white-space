@@ -1,0 +1,204 @@
+"adjust-white-space" notes                             Revised: 120711
+----------------------------------------------------------------------
+
+1. Overview.
+
+This  project  provides a  text-file  utility program that can be used
+for five purposes. More specifically, it  can be  executed  under five
+names or sets  of names (for example, through symbolic links) and will
+perform different operations in each case:
+
+      detab     - Converts tabs     to spaces as appropriate
+      entab     - Converts spaces   to tabs   as appropriate
+      setdos    - Converts newlines to Microsoft format
+      setunix   - Converts newlines to UNIX      format
+
+      trimspace, trimspaces, trimspc, trimws
+                - Removes trailing white space from text lines
+
+There's a different "help" screen in each mode.  Features include opt-
+ional processing of entire directory trees,  selection of files  based
+on regular expressions, preservation of  file  permissions  and  time-
+stamps  where possible, and safety measures of various types.
+
+The program consists of a single Perl5 script named:
+
+      adjust-white-space.pl
+
+"adjust-white-space" was created by OldCoder:
+
+      Site:    http://oldcoder.org/
+      Mail:    oldcoder@yahoo.com
+      GitHub:  https://github.com/OldCoder/
+      Repo:    https://github.com/OldCoder/adjust-white-space.git
+
+The license used for the current version is  Creative Commons Attribu-
+tion NonCommercial ShareAlike 3.0 Unported.
+
+----------------------------------------------------------------------
+
+2. Development.
+
+2.1. Source code.
+
+Full source code  for the project is provided in the same directory as
+this README file. The code  consists of the  Perl5 script mentioned in
+part 1: adjust-white-space.pl
+
+2.2. Requirements.
+
+Requirements are simply Linux  (or a  UNIX system  that is  reasonably
+compatible with Linux) and Perl5 5.10.1 or above.
+
+2.3. Installation.
+
+No "build" is needed.
+
+To install the package, proceed as follows:
+
+(a) Copy  "adjust-white-space.pl"  to wherever you'd like to store the
+script. Use one of the directories in PATH or add the directory invol-
+ved to PATH.
+
+(b) Remove the ".pl"  filename extension  and set  file permissions to
+octal 755. For example:
+
+      mv        adjust-white-space.pl adjust-white-space
+      chmod 755 adjust-white-space
+
+(c) Go to the directory that contains the script. Create eight symbol-
+ic links as follows:
+
+      AWS=adjust-white-space
+      ln -s $AWS detab
+      ln -s $AWS entab
+      ln -s $AWS setdos
+      ln -s $AWS setunix
+      ln -s $AWS trimspace
+      ln -s $AWS trimspaces
+      ln -s $AWS trimspc
+      ln -s $AWS trimws
+
+----------------------------------------------------------------------
+
+3. Usage.
+
+3.1. "detab" usage.
+
+Usage:    detab file1 file2 ...
+or        detab -t directory
+or        detab -t directory 'Perl_pattern'
+
+Options:  -t Process everything stored in the specified directory tree
+             Note:   "-t" doesn't traverse symbolic links
+          -T Disable "-t" mode (default)
+
+"detab" replaces tabs in the  specified files  with appropriate blocks
+of spaces.
+
+This program skips over binary files, missing files, devices, symbolic
+links, and directory arguments (unless "-t" is used). Additionally, it
+preserves permissions and timestamps (if possible).
+
+Limitation:  This version doesn't provide  the ability to specify tab-
+field width.
+
+"-t" accepts an  optional regular-expression argument that can be used
+to specify which files should be processed:
+
+detab -t /dir '\.(asc|txt)\z'    Search tree for .asc and .txt files
+
+----------------------------------------------------------------------
+
+3.2. "entab" usage.
+
+Usage:    entab file1 file2 ...
+or        entab -t directory
+or        entab -t directory 'Perl_pattern'
+
+Options:  -t Process everything stored in the specified directory tree
+             Note:   "-t" doesn't traverse symbolic links
+          -T Disable "-t" mode (default)
+
+"entab" replaces leading groups of eight spaces on each text line with
+single tabs. It skips over binary files, missing files,  devices, sym-
+bolic links, and directory arguments  (unless "-t" is used). Addition-
+ally, it preserves permissions and timestamps (if possible).
+
+Limitation:  This version doesn't provide  the ability to specify tab-
+field width.
+
+"-t" accepts an  optional regular-expression argument that can be used
+to specify which files should be processed:
+
+entab -t /dir '\.(asc|txt)\z'    Search tree for .asc and .txt files
+
+----------------------------------------------------------------------
+
+3.3. "setdos" usage.
+
+Usage:    setdos file1 file2 ...
+or        setdos -t directory
+or        setdos -t directory 'Perl_pattern'
+
+Options:  -t Process everything stored in the specified directory tree
+             Note:   "-t" doesn't traverse symbolic links
+          -T Disable "-t" mode (default)
+
+"setdos" converts newlines in the specified files to Microsoft format.
+
+This program skips over binary files, missing files, devices, symbolic
+links, and directory arguments (unless "-t" is used). Additionally, it
+preserves permissions and timestamps (if possible).
+
+"-t" accepts an  optional regular-expression argument that can be used
+to specify which files should be processed:
+
+setdos -t /dir '\.(asc|txt)\z'   Search tree for .asc and .txt files
+
+----------------------------------------------------------------------
+
+3.4. "setunix" usage.
+
+Usage:    setunix file1 file2 ...
+or        setunix -t directory
+or        setunix -t directory 'Perl_pattern'
+
+Options:  -t Process everything stored in the specified directory tree
+             Note:   "-t" doesn't traverse symbolic links
+          -T Disable "-t" mode (default)
+
+"setunix" converts newlines in the specified files to UNIX format.
+
+This program skips over binary files, missing files, devices, symbolic
+links, and directory arguments (unless "-t" is used). Additionally, it
+preserves permissions and timestamps (if possible).
+
+"-t" accepts an  optional regular-expression argument that can be used
+to specify which files should be processed:
+
+setunix -t /dir '\.(asc|txt)\z'  Search tree for .asc and .txt files
+
+----------------------------------------------------------------------
+
+3.5. "trimws" usage.
+
+Usage:    trimws file1 file2 ...
+or        trimws -t directory
+or        trimws -t directory 'Perl_pattern'
+
+Options:  -t Process everything stored in the specified directory tree
+             Note:   "-t" doesn't traverse symbolic links
+          -T Disable "-t" mode (default)
+
+"trimws" removes trailing spaces and/or tabs from  lines in the speci-
+fied files.
+
+This program skips over binary files, missing files, devices, symbolic
+links, and directory arguments (unless "-t" is used). Additionally, it
+preserves permissions and timestamps (if possible).
+
+"-t" accepts an  optional regular-expression argument that can be used
+to specify which files should be processed:
+
+trimws -t /dir '\.(asc|txt)\z'   Search tree for .asc and .txt files
